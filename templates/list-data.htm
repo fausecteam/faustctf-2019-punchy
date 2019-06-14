@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+	<head>
+		<title>Punchy McLochface</title>
+	</head>
+	<body bgcolor="deeppink">
+      {% if help %}
+      {{ help|safe }}
+      {% endif %}
+		<center>
+			<font face="Papyrus, fantasy" color="lightblue"><p>Here is all the data you have uploaded so far:</p></font>
+		</center>
+
+		{% if data %}
+
+		<form id="form" action="/list-data.htm" method="post" enctype="multipart/form-data">
+			<hr>
+			{% for d in data %}
+			<input type="checkbox" name="{{ loop.index }}">
+			<label for="{{ loop.index }}"><pre>{{ d[0].decode('ascii') }}</pre></label>
+      {% if d[1] %}
+      <span>{{ d[1]|safe }}</span>
+      {% endif %}
+			{% if loop.last %}
+			<hr>
+			{% else %}
+			<br>
+			{% endif %}
+			{% endfor %}
+
+			<input type="submit" value="Join">
+		</form><br>
+
+		{% else %}
+
+		No data submitted yet :( <br>
+		You should change that: <a href="/upload.htm">Click here</a><hr>
+
+		{% endif %}
+
+    Sometimes it is useful to combine punchcards to a dataset, here is how to do this:
+    <ul>
+        <li>Select all uploaded code lines you want to use</li>
+        <li>Click on 'Join'</li>
+    </ul>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+# Human-readable name of the service
+name: punchymclochface
+# Name of the service for usage in paths, usernames etc.: Should only consist of lowercase alphanumeric
+# characters
+slug: punchy
+authors:
+  - Johannes Knödtel <johannes.knoedtel@fau.de>
+  - Thomas Preisner <thomas.preisner@fau.de>
+
+install:
+  debian_packages:
+     - python3
+     - open-cobol
+     - uwsgi-plugin-python3
+     - python-opencv
+     - libsm6
+
+  # These will be run on the Vulnbox after extracting "dist_root" (from the build) to the root file system,
+  # installing Debian packages and creating the service user
+  postinst_commands:
+    - usermod -a -G punchy www-data
+    - crontab -l | { cat; echo "*/30 * * * * find /srv/punchy/data -type f -cmin +30 -exec rm {} \;"; } | crontab -
+  prevent_outgoing_connections: True
+
+checker:
+  module: punchy_mc_lochface
+  class: PunchyChecker
+  debian_packages:
+    - python3-requests
+    - python3-pil
+    - python3-jinja2
+    - python3-bs4
+    - python3-lxml

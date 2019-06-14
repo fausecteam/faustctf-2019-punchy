@@ -1,0 +1,15 @@
+/**/.ipynb_checkpoints/
+/flask_session/
+/dist_root/
+/.venv
+*.png
+log
+*~
+*.enc
+/extensions/*/*.o
+/extensions/*/*.a
+/extensions/*/*.so
+/extensions/*/*.h
+/extensions/crypto
+/extensions/staply
+__pycache__

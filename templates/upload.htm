@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<title>Punchy McLochface</title>
+	</head>
+	<body bgcolor="green">
+		<form id="form" action="/upload-image.htm" method="post" enctype="multipart/form-data">
+			Upload image of 80-column IBM punched card: <input type="file" name="image">
+      <hr>
+
+			<label for="invert">Invert Image?</label>
+			<input type="checkbox" name="invert"><br>
+			<label for="bwthreshold">B/W Threshold</label>
+			<input type="number" name="bwthreshold" value="200"><br>
+			<label for="encoding">Punchcard Encoding</label>
+			<select name="encoding" form="form">
+				{% for i in encoding %}
+				<option>{{ i }}</option>
+				{% endfor %}
+			</select><hr>
+
+			<input type="submit">
+      <button onclick="f=document.getElementById('form');f.action='/preview-image.htm';f.submit();">Preview B/W Image</button>
+      <button onclick="f=document.getElementById('form');f.action='/preview-edges.htm';f.submit();">Preview Edge Detection</button>
+      <button onclick="f=document.getElementById('form');f.action='/preview-segments.htm';f.submit();">Preview Segmentation</button>
+      <button onclick="f=document.getElementById('form');f.action='/preview-cells.htm';f.submit();">Preview Cells</button>
+		</form>
+    Instructions:
+
+    <ul>
+        <li>Images must be horizontal and have the "clipped" corner of the punched card in the upper left corner.</li>
+        <li>Settings must be tuned until the B/W image shows a black card on a white background (punched holes are also white).</li>
+        <li>To check if your card is readable please check if the edges of the card are correctly detected and the holes are inside the segments.</li>
+    </ul>
+	</body>
+</html>
